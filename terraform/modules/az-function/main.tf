@@ -27,5 +27,9 @@ resource "azurerm_function_app" "functionapp" {
       FUNCTIONS_WORKER_RUNTIME = "dotnet"
       WEBSITE_NODE_DEFAULT_VERSION = "10.14.1"
       APPINSIGHTS_INSTRUMENTATIONKEY = var.app_insights_instrumentation_key
+      Cosmos_Endpoint = join("",["@Microsoft.KeyVault(SecretUri=]", var.cosmosendpointuri, ")"])
+      Cosmos_Key = join("",["@Microsoft.KeyVault(SecretUri=]", var.cosmoskeyuri, ")"])
+      Cosmos_DatabaseId = "CustomersDatabase"
+      Cosmos_ContainerId = "Customers"
   }
 }

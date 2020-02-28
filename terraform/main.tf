@@ -31,6 +31,8 @@ module "function_app" {
   function_app_name = local.function_app_name
   storage_key = module.function_app_storage.storage_account_primary_coonection_string
   app_insights_instrumentation_key = module.function_app_app_insights.instrumentation_key
+  cosmoskeyuri = data.azurerm_key_vault_secret.cosmos-key.id
+  cosmosendpointuri = data.azurerm_key_vault_secret.cosmos-endpoint.id
 }
 
 module "cosmos_db" {
@@ -49,6 +51,24 @@ module "keyvault" {
   keyvault_name = local.keyvault_name
   tenant_id = var.tenant_id
   appservice_msi = module.function_app.msi
+}
+
+module "keyvault_secret_cosmos_endpoint" {
+  source = "./modules/keyvault-secret"
+  secret_name = "Cosmos-Endpoint"
+  secret_value = module.cosmos_db.cosmos-db-endpoint
+  environment = var.environment
+  resource_group_name = local.resource_group_name
+  keyvault_name = local.keyvault_name
+}
+
+module "keyvault_secret_cosmos_key" {
+  source = "./modules/keyvault-secret"
+  secret_name = "Cosmos-Key"
+  secret_value =  module.cosmos_db.cosmos_primary_key
+  environment = var.environment
+  resource_group_name = local.resource_group_name
+  keyvault_name = local.keyvault_name
 }
 
 

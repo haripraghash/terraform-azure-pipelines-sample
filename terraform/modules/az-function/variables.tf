@@ -30,3 +30,13 @@ variable "app_insights_instrumentation_key" {
   description = "Application insights instrumention key"
 }
 
+variable "cosmoskeyuri" {
+  type      = string
+  description = "Cosmos key key vault uri"
+}
+
+variable "cosmosendpointuri" {
+  type      = string
+  description = "Cosmos endpoint key vault uri"
+}
+

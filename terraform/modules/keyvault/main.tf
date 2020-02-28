@@ -1,4 +1,7 @@
 #------------keyvault\main.tf---------#
+data "azurerm_client_config" "current" {
+}
+
 resource "azurerm_key_vault" "example" {
   name                        = var.keyvault_name
   location                    = var.region
@@ -15,6 +18,21 @@ resource "azurerm_key_vault" "example" {
     secret_permissions = [
       "get",
       "list"
+    ]
+
+    storage_permissions = [
+      "get",
+    ]
+  }
+
+  access_policy {
+    tenant_id = data.azurerm_client_config.current.tenant_id
+    object_id = data.azurerm_client_config.current.object_id
+
+    secret_permissions = [
+      "get",
+      "list",
+      "set"
     ]
 
     storage_permissions = [
