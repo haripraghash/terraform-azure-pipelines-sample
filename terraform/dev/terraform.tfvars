@@ -1,0 +1,5 @@
+environment = "dev"
+region = "North Europe"
+short_region = "eun"
+tenant_id = "aa2bb2c7-7968-454a-b359-ab562956de2c"
+subscription_id = "ce38cf7c-3580-4375-b891-13a38abb98be"
