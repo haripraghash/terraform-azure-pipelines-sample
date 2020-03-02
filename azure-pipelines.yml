@@ -52,7 +52,7 @@ stages:
             inputs:
               command: 'init'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-              commandOptions: '-backend-config="access_key=$(tfstate)" -backend-config="storage-account-name=$(tf_backend_storage_name)" -backend-config="container_name=tfstate" -backend-config="key=tfstate.key"'
+              commandOptions: '-backend-config="access_key=$(tfstatestorkey)" -backend-config="storage_account_name=$(tf_backend_storage_name)" -backend-config="container_name=tfstate" -backend-config="key=tfstate.key"'
           # - task: terraform@0
           #   inputs:
           #     command: 'CLI'
