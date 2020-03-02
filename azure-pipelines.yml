@@ -58,6 +58,6 @@ stages:
             inputs:
               command: 'apply'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-              commandOptions: '--auto-approve'
+              commandOptions: ' -vars-file="$(System.DefaultWorkingDirectory)/terraform/$(ENV)/terraform.tfvars" --auto-approve'
               environmentServiceName: 'TF-Serviceconnection'
         
