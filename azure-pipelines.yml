@@ -41,6 +41,7 @@ stages:
             displayName: Install Terraform
       - job: TerraformInit
         displayName: 'Initialize Terraform'
+        dependsOn: SetUpTerraformRemoteBackend
         steps:
           - task: AzureKeyVault@1
             displayName: 'Retrieve TF backend storage access key from Key Vault'
