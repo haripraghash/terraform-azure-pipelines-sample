@@ -54,6 +54,7 @@ stages:
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
               commandOptions: '-backend-config="access_key=$(tfstate)" -backend-config="storage-account-name=$(tf_backend_storage_name)" -backend-config="container_name=tfstate" -backend-config="key=tfstate.key"'
               backendType: 'azurerm'
+              backendServiceArm: 'TF-Serviceconnection'
           # - task: terraform@0
           #   inputs:
           #     command: 'CLI'
