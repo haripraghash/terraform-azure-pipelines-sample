@@ -1,7 +1,7 @@
 #!/bin/bash
 
     RESOURCE_GROUP="acme-${ENV}-tfstate-${REGION_SHORT}-resgrp"
-    STORAGE_ACCOUNT_NAME="acme${ENV}tfstates${REGION_SHORT}stor"
+    STORAGE_ACCOUNT_NAME="acme${ENV}tfstate${REGION_SHORT}stor"
     KEY_VAULT_NAME="acme${ENV}tfstate${REGION_SHORT}vault"
 
     az group create -n $RESOURCE_GROUP -l $REGION
