@@ -18,12 +18,12 @@ variables:
 
 stages:
   - stage: Dev
+    variables:
+      ENV: 'dev'
+      REGION: 'northeurope'
+      REGION_SHORT: 'eun'
     jobs:
       - job: SetUpTerraformRemoteBackend
-        variables:
-          ENV: 'dev'
-          REGION: 'northeurope'
-          REGION_SHORT: 'eun'
         displayName: 'Set up Terraform remote backend'
         steps:
           - task: AzureCLI@2
