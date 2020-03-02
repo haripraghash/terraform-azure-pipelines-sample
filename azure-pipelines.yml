@@ -30,7 +30,7 @@ stages:
             displayName: 'Run script to set up remote backend'
             inputs:
               scriptPath: './create-tf-backend.sh'
-              azureSubscription: $(AZURE_SUBSCRIPTION)
+              azureSubscription: 'TF-Serviceconnection'
               scriptType: bash
       - job: InstallTerraform
         displayName: 'Install Terraform on Agent'
@@ -45,7 +45,7 @@ stages:
           - task: AzureKeyVault@1
             displayName: 'Retrieve TF backend storage access key from Key Vault'
             inputs:
-              azureSubscription: $(AZURE_SUBSCRIPTION)
+              azureSubscription: 'TF-Serviceconnection'
               KeyVaultName: $(keyvault_name)
               SecretsFilter: 'tfstate'
           - task: TerraformCLI@0
