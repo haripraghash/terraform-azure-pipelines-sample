@@ -59,4 +59,5 @@ stages:
               command: 'apply'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
               commandOptions: '--auto-approve'
+              environmentServiceName: 'TF-Serviceconnection'
         
