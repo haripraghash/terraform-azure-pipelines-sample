@@ -47,7 +47,7 @@ stages:
             inputs:
               azureSubscription: 'TF-Serviceconnection'
               KeyVaultName: $(keyvault_name)
-              SecretsFilter: 'tfstate'
+              SecretsFilter: 'tfstatestorkey'
           - task: TerraformCLI@0
             inputs:
               command: 'init'
