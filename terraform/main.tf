@@ -1,5 +1,8 @@
 #-----dev\main.tf-------#
 
+data "azurerm_client_config" "current" {
+}
+
 module "app_resource_group" {
    source  = "./modules/resource-group"
    resource_group_name = local.resource_group_name
@@ -31,9 +34,28 @@ module "function_app" {
   function_app_name = local.function_app_name
   storage_key = module.function_app_storage.storage_account_primary_coonection_string
   app_insights_instrumentation_key = module.function_app_app_insights.instrumentation_key
-  cosmoskeyuri = data.azurerm_key_vault_secret.cosmos-key.id
-  cosmosendpointuri = data.azurerm_key_vault_secret.cosmos-endpoint.id
+  cosmoskeyuri = module.keyvault_secret_cosmos_endpoint.secret_id
+  cosmosendpointuri = module.keyvault_secret_cosmos_key.secret_id
 }
+
+module "keyvault_access_policy_functionap" {
+  source = "./modules/keyvault-access-policy"
+  resource_group_name = module.app_resource_group.resource_group_name
+  keyvault_name = local.keyvault_name
+  tenant_id = var.tenant_id
+  object_id = module.function_app.msi
+  keyvault_id = module.keyvault.keyvault_id
+}
+
+module "keyvault_access_policy_current" {
+  source = "./modules/keyvault-access-policy"
+  resource_group_name = module.app_resource_group.resource_group_name
+  keyvault_name = local.keyvault_name
+  tenant_id = data.azurerm_client_config.current.tenant_id
+  object_id = data.azurerm_client_config.current.object_id
+  keyvault_id = module.keyvault.keyvault_id
+}
+
 
 module "cosmos_db" {
   source = "./modules/cosmos"
@@ -60,6 +82,7 @@ module "keyvault_secret_cosmos_endpoint" {
   environment = var.environment
   resource_group_name = local.resource_group_name
   keyvault_name = local.keyvault_name
+  keyvault_id = module.keyvault.keyvault_id
 }
 
 module "keyvault_secret_cosmos_key" {
@@ -69,6 +92,7 @@ module "keyvault_secret_cosmos_key" {
   environment = var.environment
   resource_group_name = local.resource_group_name
   keyvault_name = local.keyvault_name
+  keyvault_id = module.keyvault.keyvault_id
 }
 
 

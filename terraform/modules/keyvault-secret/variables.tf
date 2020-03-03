@@ -25,3 +25,9 @@ variable "resource_group_name" {
   description = "Resource group name"
 }
 
+variable "keyvault_id" {
+  type      = string
+  description = "Key vault id"
+}
+
+
